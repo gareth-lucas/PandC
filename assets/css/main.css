@@ -1,0 +1,11 @@
+#mainNav {
+	position: relative;
+	background-color: rgba(0,0,0,0.7);
+	margin-bottom: 0px;
+	border-bottom: none;
+}
+
+div.background-inverse {
+	color: #DDD;
+	background-color: #333;
+}

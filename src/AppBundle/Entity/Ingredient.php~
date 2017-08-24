@@ -1,0 +1,131 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Ingredient
+ *
+ * @ORM\Table(name="ingredient")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\IngredientRepository")
+ */
+class Ingredient
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     */
+    private $name;
+    
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="IngredientPreparation", inversedBy="ingredient")
+     */
+    private $ingredientPreparations;
+    
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Recipe", inversedBy="ingredients");
+     */
+    private $recipes;
+    
+    public function __construct() {
+        $this->ingredientPreparations = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Ingredient
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set ingredientPreparations
+     *
+     * @param \AppBundle\Entity\IngredientPreparation $ingredientPreparations
+     *
+     * @return Ingredient
+     */
+    public function setIngredientPreparations(\AppBundle\Entity\IngredientPreparation $ingredientPreparations = null)
+    {
+        $this->ingredientPreparations = $ingredientPreparations;
+
+        return $this;
+    }
+
+    /**
+     * Get ingredientPreparations
+     *
+     * @return \AppBundle\Entity\IngredientPreparation
+     */
+    public function getIngredientPreparations()
+    {
+        return $this->ingredientPreparations;
+    }
+
+    /**
+     * Set recipes
+     *
+     * @param \AppBundle\Entity\Recipe $recipes
+     *
+     * @return Ingredient
+     */
+    public function setRecipes(\AppBundle\Entity\Recipe $recipes = null)
+    {
+        $this->recipes = $recipes;
+
+        return $this;
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \AppBundle\Entity\Recipe
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
+    }
+}
