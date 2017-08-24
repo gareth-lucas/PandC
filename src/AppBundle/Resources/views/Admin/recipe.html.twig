@@ -1,0 +1,14 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
+
+{% block adminpage %}
+<h2>Create New Recipe</h2>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock %}

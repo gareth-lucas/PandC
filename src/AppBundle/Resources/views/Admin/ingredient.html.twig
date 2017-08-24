@@ -1,0 +1,52 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% block adminpage %}
+<h2>{{ 'admin.ingredient.title' | trans }}</h2>
+
+<h3>Ingredients already managed</h3>
+<div class="well pre-scrollable" style="height: 400px;">
+	
+    <table class="table">
+    	<thead>
+        	<tr>
+        		<th>{{ 'admin.ingredient.table.name' | trans }}</th>
+        		<th>{{ 'admin.ingredient.table.actions' | trans }}</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	{% for i in ingredients %}
+        	<tr>
+        		<td class="filterable-cell">{{ i.name }}</td>
+        		<td>
+        			<a href="#">edit</a>
+        			<a href="#">delete</a>
+        		</td>
+        	</tr>
+        	{% else %}
+        	<tr>
+        		<td colspan="2">{{ 'admin.ingredient.table.no_ingredients' | trans }}</td>
+        	</tr>
+        	{% endfor %}
+    	</tbody>
+    </table>
+</div>
+
+<h3>Add New Ingredient</h3>
+{% form_theme form with [
+    'bootstrap_3_horizontal_layout.html.twig',
+    '::form/fields/imageCollection.html.twig'
+] %}
+
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}        
+        {{ form_row(form.imageCollection.images) }} 
+{{ form_end(form) }}
+{% endblock adminpage %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('build/imagecollection.js') }}"></script>
+{% endblock %}

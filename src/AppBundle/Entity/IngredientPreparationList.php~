@@ -1,0 +1,110 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * IngredientPreparationList
+ *
+ * @ORM\Table(name="ingredient_preparation_list")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\IngredientPreparationListRepository")
+ */
+class IngredientPreparationList
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="IngredientPreparation", inversedBy="ingredientPreparation")
+     */
+    private $ingredientPreparation;
+    
+    /**
+     * @var Recipe
+     * @ORM\OneToOne(targetEntity="Recipe", inversedBy="ingredientPreparationList")
+     */
+    private $recipe;
+
+    /**
+     * constructor
+     */
+    public function __construct() {
+        $this->ingredientPreparation = new ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add ingredientPreparation
+     *
+     * @param \AppBundle\Entity\IngredientPreparation $ingredientPreparation
+     *
+     * @return IngredientPreparationList
+     */
+    public function addIngredientPreparation(\AppBundle\Entity\IngredientPreparation $ingredientPreparation)
+    {
+        $this->ingredientPreparation[] = $ingredientPreparation;
+
+        return $this;
+    }
+
+    /**
+     * Remove ingredientPreparation
+     *
+     * @param \AppBundle\Entity\IngredientPreparation $ingredientPreparation
+     */
+    public function removeIngredientPreparation(\AppBundle\Entity\IngredientPreparation $ingredientPreparation)
+    {
+        $this->ingredientPreparation->removeElement($ingredientPreparation);
+    }
+
+    /**
+     * Get ingredientPreparation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIngredientPreparation()
+    {
+        return $this->ingredientPreparation;
+    }
+
+    /**
+     * Set recipe
+     *
+     * @param \AppBundle\Entity\Recipe $recipe
+     *
+     * @return IngredientPreparationList
+     */
+    public function setRecipe(\AppBundle\Entity\Recipe $recipe = null)
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Get recipe
+     *
+     * @return \AppBundle\Entity\Recipe
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
+}

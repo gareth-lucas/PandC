@@ -1,0 +1,19 @@
+{% extends 'adminlayout.html.twig' %}
+{% form_theme form with [
+    '::form/fields/images.html.twig'
+] %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% block adminpage %}
+<h2>Testing...</h2>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock adminpage %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('build/imagecollection.js') }}"></script>
+{% endblock %}

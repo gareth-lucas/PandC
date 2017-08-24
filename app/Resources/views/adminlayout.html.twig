@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}	
+	<div class="container background-inverse">
+		<div class="row">
+			<div class="col-md-12 background-inverse">
+				<h1>Admin Dashboard</h1>
+			</div>
+		</div>
+		<!-- Left-hand Nav Bar -->
+		<div class="row">
+    		<div class="col-md-3 background-inverse">
+    			<ul>
+    				<li>Manage Ingredients</li>
+    				<li>Manage Recipes</li>
+    				<li>Manage Preparations</li>
+    				<li>Manage Homepage</li>
+    			</ul>
+    		</div>
+    		
+    		<!-- Main Page Area -->
+    		<div class="col-md-9" style="background-color: #FFF; color: #333">
+    		{% block adminpage %}{% endblock %}
+    		</div>
+		</div>
+	</div>
+{% endblock body %}

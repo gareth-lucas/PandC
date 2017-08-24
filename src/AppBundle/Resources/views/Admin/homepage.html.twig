@@ -1,0 +1,26 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
+
+{% block adminpage %}
+<a href="#" class="pull-right">See change history</a>
+<h2>Homepage Settings</h2>
+
+{{ form_start(form) }}
+<div class="well">
+{{ form_row(form.main_recipe) }}
+{{ form_row(form.main_recipe_use_latest) }}
+</div>
+
+<div class="well">
+{{ form_row(form.feature_one) }}
+{{ form_row(form.feature_two) }}
+{{ form_row(form.feature_three) }}
+{{ form_row(form.feature_four) }}
+{{ form_row(form.feature_recipes_use_latest) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}
