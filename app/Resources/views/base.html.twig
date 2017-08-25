@@ -4,16 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset("build/global.css") }}" />
-		<link rel="stylesheet" type="text/css" href="{{ asset("build/main.css") }}" />        
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        	{% stylesheets 	"resources/vendor/bootstrap/css/bootstrap.min.css"
+        	               	"resources/css/main.css" %}
+        	<link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+        	{% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
-        
-        <script type="text/javascript" src="{{ asset('build/manifest.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('build/vendors.js') }}"></script>
-        {% block javascripts %}{% endblock %}
+
+        {% block javascripts %}
+            {% javascripts 	"resources/vendor/jquery/*.js"
+                          	"resources/vendor/bootstrap/js/bootstrap.min.js" %}
+        		<script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

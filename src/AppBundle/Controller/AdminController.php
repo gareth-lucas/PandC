@@ -30,9 +30,6 @@ class AdminController extends Controller
         ]);
         
         $ingredient = new Ingredient();
-        $ic = new ImageCollection();
-        $ic->addImage(new Image());
-        $ingredient->setImageCollection($ic);
         
         $form = $this->createForm(IngredientType::class, $ingredient);
         

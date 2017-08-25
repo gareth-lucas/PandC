@@ -2,7 +2,12 @@
 
 {% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
 
-{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig'] %}
+{% form_theme form with [
+	'bootstrap_3_horizontal_layout.html.twig',
+	'::form/fields/imageCollection.html.twig',
+	'::form/fields/ingredientPreparationCollection.html.twig'
+
+] %}
 
 {% block adminpage %}
 <h2>Create New Recipe</h2>

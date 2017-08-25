@@ -44,9 +44,14 @@
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}        
         {{ form_row(form.imageCollection.images) }} 
-{{ form_end(form) }}
+        {{ form_row(form.submit) }}
+        {{ form_widget(form._token) }}
+{{ form_end(form, {'render_rest': false}) }}    
 {% endblock adminpage %}
 
 {% block javascripts %}
-<script type="text/javascript" src="{{ asset('build/imagecollection.js') }}"></script>
+{{ parent() }}
+{% javascripts "resources/js/imagecollection.js" %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

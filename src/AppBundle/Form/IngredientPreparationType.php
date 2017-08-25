@@ -13,7 +13,10 @@ class IngredientPreparationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('quantity')->add('ingredient')->add('preparation');
+        $builder->add('quantity')
+        ->add('uom')
+        ->add('preparation')
+        ->add('ingredient');
     }
     
     /**

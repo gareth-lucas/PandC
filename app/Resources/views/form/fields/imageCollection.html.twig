@@ -1,28 +1,21 @@
-{% macro service_template(fields) %}
+{% macro imageTemplate(fields) %}
 	<div class="well">	
-        <div class="form-group">
-        	<div class="col-sm-2">
-        		{{ form_label(fields.image, null, {"label_attr": {"class": "control-label"}}) }}
-        	</div>
-        	<div class="col-sm-10">
-        		{{ form_widget(fields.image, {"attr": {"class": "form-control"}}) }}
-        	</div>
-        </div>
-        <div class="form-group">
-        	<div class="col-sm-2">
-        		{{ form_label(fields.imageCaption, null, {"label_attr": {"class": "control-label"}}) }}
-        	</div>
-        	<div class="col-sm-10">
-        		{{ form_widget(fields.imageCaption, {"attr": {"class": "form-control"}}) }}
-        	</div>
-        </div>
-        <div class="form-group">
-        	<div class="col-sm-2">
-        		{{ form_label(fields.imageCopyright, null, {"label_attr": {"class": "control-label"}}) }}
-        	</div>
-        	<div class="col-sm-10">
-        		{{ form_widget(fields.imageCopyright, {"attr": {"class": "form-control"}}) }}
-        	</div>
+        <div class="row">
+        	<div class="form-group">
+        		{{ form_label(fields.image) }}
+        		<div class="col-sm-10">        		
+        			<div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                                Browse&hellip; {{ form_widget(fields.image, {"attr": {"style":"display:none;"}}) }}
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+    		{{ form_row(fields.imageCaption) }}
+    		{{ form_row(fields.imageCopyright) }}
         </div>
 	</div>
 {% endmacro %}
@@ -35,9 +28,9 @@
 #}
 
 {% block _appbundle_ingredient_imageCollection_images_widget %}
-    <div id="appbundle_imagecollection_images" data-prototype="{{ _self.service_template(form.vars.prototype)|e }}">
+    <div id="appbundle_imagecollection_images" data-prototype="{{ _self.imageTemplate(form.vars.prototype)|e }}">
         {% for fields in form.children %}
-            {{ _self.service_template(fields) }}
+            {{ _self.imageTemplate(fields) }}
         {% endfor %}
     </div>
 {% endblock %}
