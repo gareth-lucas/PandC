@@ -29,9 +29,9 @@ class AdminController extends Controller
 {
 
     /**
-     * @Route("/admin/ingredient/{name}", name="admin_ingredient")
+     * @Route("/admin/ingredient/{slug}", name="admin_ingredient")
      */
-    public function ingredientAction(Request $request, FileUploader $fileUploader, $name = null)
+    public function ingredientAction(Request $request, FileUploader $fileUploader, $slug = null)
     {
         $em = $this->getDoctrine()->getManager();
         $ingredients = $em->getRepository(Ingredient::class)->findBy([], [
@@ -39,8 +39,10 @@ class AdminController extends Controller
         ]);
         
         $ingredient = new Ingredient();
-        if ($name) {
-            $ingredient = $em->getRepository(Ingredient::class)->findOneByName($name);
+        $isNew = true;
+        if ($slug) {
+            $ingredient = $em->getRepository(Ingredient::class)->findOneBySlug($slug);
+            $isNew = false;
         }
         
         $form = $this->createForm(IngredientType::class, $ingredient);
@@ -71,40 +73,11 @@ class AdminController extends Controller
         
         return $this->render('AppBundle:Admin:ingredient.html.twig', array(
             'ingredients' => $ingredients,
+            'isNew'=>$isNew,
             'form' => $form->createView()
         ));
     }
 
-    // this method to be deleted...
-    /**
-     * @Route("/admin/test", name="admin_test")
-     */
-    public function icAction(Request $request)
-    {
-        $ic = new ImageCollection();
-        $form = $this->createForm(ImageCollectionType::class, $ic);
-        
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageCollection = $form->getData();
-            foreach ($imageCollection->getImages() as $image) {
-                $image->setImageFormat("jpg");
-                $image->setImageSize("100");
-                $image->setImageFilepath("/here/there/everywhere/file.jpg");
-            }
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($imageCollection);
-            $em->flush();
-            
-            return $this->redirectToRoute("admin_test");
-        }
-        
-        return $this->render('AppBundle:Admin:imagecollection.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
 
     /**
      * @Route("/admin/homepage", name="admin_homepage")
@@ -204,11 +177,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/uom/{name}", name="admin_uom")
+     * @Route("/admin/uom/{slug}", name="admin_uom")
      *
      * @param Request $request
      */
-    public function uomAction(Request $request, $name = null)
+    public function uomAction(Request $request, $slug = null)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -218,8 +191,8 @@ class AdminController extends Controller
         
         $isNew = true;
         $uom = new UnitOfMeasure();
-        if ($name) {
-            $uom = $em->getRepository(UnitOfMeasure::class)->findOneByName($name);
+        if ($slug) {
+            $uom = $em->getRepository(UnitOfMeasure::class)->findOneBySlug($slug);
             $isNew = false;
         }
         
@@ -243,11 +216,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/preparation/{name}", name="admin_preparation")
+     * @Route("/admin/preparation/{slug}", name="admin_preparation")
      *
      * @param Request $request
      */
-    public function preparationAction(Request $request, $name = null)
+    public function preparationAction(Request $request, $slug = null)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -257,8 +230,8 @@ class AdminController extends Controller
         
         $isNew = true;
         $preparation = new Preparation();
-        if ($name) {
-            $preparation = $em->getRepository(Preparation::class)->findOneByName($name);
+        if ($slug) {
+            $preparation = $em->getRepository(Preparation::class)->findOneBySlug($slug);
             $isNew = false;
         }
         
@@ -282,11 +255,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/mealtype/{name}", name="admin_mealtype")
+     * @Route("/admin/mealtype/{slug}", name="admin_mealtype")
      *
      * @param Request $request
      */
-    public function mealtypeAction(Request $request, $name = null)
+    public function mealtypeAction(Request $request, $slug = null)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -296,8 +269,8 @@ class AdminController extends Controller
         
         $isNew = true;
         $mealtype = new MealType();
-        if ($name) {
-            $mealtype = $em->getRepository(MealType::class)->findOneByName($name);
+        if ($slug) {
+            $mealtype = $em->getRepository(MealType::class)->findOneBySlug($slug);
             $isNew = false;
         }
         

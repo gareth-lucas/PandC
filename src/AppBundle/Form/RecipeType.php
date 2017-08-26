@@ -19,23 +19,25 @@ class RecipeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-        ->add('description')
-        ->add('mealType')
+        $builder->add('title', null, ['label'=>'form.recipe.title'])
+        ->add('description', null, ['label'=>'form.recipe.description'])
+        ->add('mealType', null, ['label'=>'form.recipe.mealtype'])
         ->add('preparationTime', TimeType::class, [
             'required'=>false,
-            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]
+            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55],
+            'label'=>'form.recipe.prep_time'
         ])
         ->add('cookingTime', TimeType::class, [
             'required'=>false,
-            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]
+            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55],
+            'label'=>'form.recipe.cook_time'
         ])
         ->add('uploadedBy', HiddenType::class)
         ->add('creationDate', HiddenType::class)
         ->add('ingredientPreparationCollection', IngredientPreparationCollectionType::class)
         ->add('recipeStepCollection', RecipeStepCollectionType::class)
         ->add('imageCollection', ImageCollectionType::class)
-        ->add('submit', SubmitType::class);
+        ->add('submit', SubmitType::class, ['label'=>'form.recipe.submit']);
     }
     
     /**

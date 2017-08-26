@@ -13,7 +13,8 @@ class RecipeStepCollectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('recipeSteps', CollectionType::class, [
             'entry_type'=>RecipeStepType::class,
-            'allow_add'=>true
+            'allow_add'=>true,
+            'label'=>'form.recipe.recipe_step_collection.recipe_steps'
         ]);
     }
 

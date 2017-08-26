@@ -20,7 +20,8 @@ class ImageCollectionType extends AbstractType
             "entry_type"=>ImageType::class,
             "by_reference"=>false,
             "allow_add"=>true,
-            "allow_delete"=>true
+            "allow_delete"=>true,
+            "label"=>'form.imagecollection.images'
         ])
         ->add('submit', SubmitType::class);
     }

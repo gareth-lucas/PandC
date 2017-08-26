@@ -15,10 +15,10 @@ class IngredientType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
-        ->add('description')
+        $builder->add('name', null, ['label'=>'form.ingredient.name'])
+        ->add('description', null, ['label'=>'form.ingredient.description'])
         ->add('imageCollection',ImageCollectionType::class)
-        ->add('submit', SubmitType::class);
+        ->add('submit', SubmitType::class, ['label'=>'form.ingredient.submit']);
     }
     
     /**

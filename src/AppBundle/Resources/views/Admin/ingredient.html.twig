@@ -20,7 +20,7 @@
         	<tr>
         		<td class="filterable-cell">{{ i.name }}</td>
         		<td>
-        			<a href="ingredient/{{ i.name }}">edit</a>
+        			<a href="ingredient/{{ i.slug }}">edit</a>
         			<a href="#">delete</a>
         		</td>
         	</tr>
@@ -33,7 +33,12 @@
     </table>
 </div>
 
+{% if isNew == true %}
 <h3>Add New Ingredient</h3>
+{% else %}
+<a href="{{ path("admin_ingredient") }}" class="pull-right">Add New</a>
+<h3>Modify Ingredient</h3>
+{% endif %}
 {% form_theme form with [
     'bootstrap_3_horizontal_layout.html.twig',
     '::form/fields/imageCollection.html.twig'

@@ -18,18 +18,18 @@ class HomepageSettingsType extends AbstractType
     {
         $builder->add('timestamp', HiddenType::class)
         ->add('user', HiddenType::class)
-        ->add('main_recipe')
+        ->add('main_recipe', null, ['label'=>'form.homepage.main_recipe'])
         ->add('main_recipe_use_latest', CheckboxType::class, [
             "required"=>false,
-            "label"=>"form.admin.homepage.main_use_latest"
+            "label"=>"form.homepage.main_use_latest"
         ])
-        ->add('feature_one')
-        ->add('feature_two')
-        ->add('feature_three')
-        ->add('feature_four')
+        ->add('feature_one', null, ['label'=>'form.homepage.feature_one'])
+        ->add('feature_two', null, ['label'=>'form.homepage.feature_two'])
+        ->add('feature_three', null, ['label'=>'form.homepage.feature_three'])
+        ->add('feature_four', null, ['label'=>'form.homepage.feature_four'])
         ->add('feature_recipes_use_latest', CheckboxType::class, [
             "required"=>false,
-            "label"=>"form.admin.homepage.featured_use_latest"
+            "label"=>"form.homepage.featured_use_latest"
         ])
         ->add('submit', SubmitType::class);
     }

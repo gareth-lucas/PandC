@@ -14,8 +14,8 @@ class MealTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
-        ->add('submit', SubmitType::class);
+        $builder->add('name', null, ['label'=>'form.mealtype.name'])
+        ->add('submit', SubmitType::class, ['label'=>'form.mealtype.submit']);
     }
     
     /**

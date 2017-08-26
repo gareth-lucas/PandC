@@ -17,7 +17,7 @@
             <tr>
                 <td class="filterable-cell">{{ i.name }}</td>
                 <td>
-                    <a href="mealtype/{{ i.name }}">edit</a>
+                    <a href="{{ path("admin_mealtype", {"slug": i.slug}) }}">edit</a>
                     <a href="#">delete</a>
                 </td>
             </tr>
@@ -29,7 +29,12 @@
         </tbody>
     </table>
 </div>
-<h3>Add New Meal Type</h3>
+{% if isNew == true %}
+<h3>Add New Mealtype</h3>
+{% else %}
+<a class="pull-right" href="{{ path("admin_mealtype") }}">Create New</a>
+<h3>Modify Mealtype</h3>
+{% endif %}
 {% form_theme form with [
     'bootstrap_3_horizontal_layout.html.twig'
 ] %}

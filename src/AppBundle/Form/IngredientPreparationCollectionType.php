@@ -19,7 +19,8 @@ class IngredientPreparationCollectionType extends AbstractType
         $builder->add('recipe', HiddenType::class)
         ->add('ingredientPreparations', CollectionType::class, [
             'entry_type'=>IngredientPreparationType::class,
-            'allow_add'=>true            
+            'allow_add'=>true   ,
+            'label'=>'form.recipe.ingredientpreparations.label'
         ]);
     }
     

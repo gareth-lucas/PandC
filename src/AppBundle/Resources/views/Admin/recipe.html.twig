@@ -12,7 +12,7 @@
 ] %}
 
 {% block adminpage %}
-<h3>Recipes</h3>
+<h3>{{ 'headings.recipe.recipe' | trans }}</h3>
 <div class="well pre-scrollable" style="height: 400px;">
 	
     <table class="table">
@@ -41,13 +41,11 @@
 </div>
 
 {% if isNew == true %}
-<h3>Add New Recipe</h3>
+<h3>{{ 'headings.recipe.add_new' | trans }}</h3>
 {% else %}
-<a class="pull-right" href="{{ path("admin_recipe") }}">Create New</a>
-<h3>Modify Recipe</h3>
+<a class="pull-right" href="{{ path("admin_recipe") }}">{{ 'headings.add_new' | trans }}</a>
+<h3>{{ 'headings.recipe.modify' | trans }}</h3>
 {% endif %}
-
-<h2>Create New Recipe</h2>
 
 {{ form_start(form) }}
     {{ form_row(form.title) }}

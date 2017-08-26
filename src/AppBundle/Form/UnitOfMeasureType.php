@@ -14,9 +14,9 @@ class UnitOfMeasureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
-        ->add('abbreviation')
-        ->add('submit', SubmitType::class);
+        $builder->add('name', null, ['label'=>'form.uom.name'])
+        ->add('abbreviation', null, ['label'=>'form.uom.abbreviation'])
+        ->add('submit', SubmitType::class, ['label'=>'form.uom.submit']);
     }
     
     /**

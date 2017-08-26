@@ -1,0 +1,77 @@
+admin:
+  dashboard: Admin Dashboard
+  recipe:
+    table:
+      title: Title
+      actions: Actions
+      no_data: There is no data to display
+  ingredient:
+    title: Manage Ingredients
+    table:
+      name: Name
+      actions: Actions
+  preparation:
+    table:
+      name: Name
+      actions: Actions 
+  uom:
+    table:
+      name: Name
+      abbreviation: Abbreviation
+      actions: Actions
+  mealtype:
+    title: Type of Recipe
+    table:
+      name: Type of Recipe
+      actions: Actions
+headings:
+  recipe:
+    recipe: Manage Recipes
+    add_new: Add New Recipe
+    modify: Modify Recipe
+  add_new: Add New      
+      
+form:
+  recipe:
+    ingredientpreparations:
+      quantity: Quantity
+      unit: Unit
+      preparation: Preparation
+      ingredient: Ingredient     
+      label: Ingredients
+    title: Title
+    description: Description
+    mealtype: Good for
+    prep_time: Preparation Time
+    cook_time: Cooking Time
+    submit: Save
+    recipe_step_collection:
+      recipe_steps: Recipe Steps   
+  imagecollection:
+    images: Images
+  image:
+    image: Image   
+    caption: Caption
+    copyright: Copyright
+  ingredient:
+    name: Name
+    description: Description
+    submit: Save
+  preparation:
+    name: Name
+    submit: Save
+  uom:
+    name: Name
+    abbreviation: Abbreviation
+    submit: Save
+  mealtype:
+    name: Type of Recipe
+    submit: Save
+  homepage:
+    main_recipe: Main Recipe
+    main_use_latest: Use most recent upload as Main Recipe
+    feature_one: First Featured Recipe
+    feature_two: Second Featured Recipe
+    feature_three: Third Featured Recipe
+    feature_four: Fourth Featured Recipe
+    featured_use_latest: Use most recent uploads as featured recipes

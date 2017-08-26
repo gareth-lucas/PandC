@@ -25,7 +25,7 @@
         	<tr>
         		<td class="filterable-cell">{{ p.name }}</td>
         		<td>
-        			<a href="{{ path("admin_preparation", {"name":p.name}) }}">edit</a>
+        			<a href="{{ path("admin_preparation", {"slug":p.slug}) }}">edit</a>
         			<a href="#">delete</a>
         		</td>
         	</tr>
