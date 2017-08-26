@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Preparation
@@ -27,6 +28,13 @@ class Preparation
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+    
+    
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -62,7 +70,16 @@ class Preparation
     {
         return $this->name;
     }
+      
     
+    /**
+     * @return the $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
     public function __toString() {
         return $this->getName();
     }

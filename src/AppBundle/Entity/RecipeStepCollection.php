@@ -56,6 +56,7 @@ class RecipeStepCollection
     public function addRecipeStep(RecipeStep $recipeStep)
     {
         $this->recipeSteps->add($recipeStep);
+        $recipeStep->setRecipeStepCollection($this);
         
         return $this;
     }

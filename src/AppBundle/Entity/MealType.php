@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * MealType
@@ -27,6 +29,13 @@ class MealType
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -63,6 +72,16 @@ class MealType
         return $this->name;
     }
     
+    
+    
+    /**
+     * @return the $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
     public function __toString() {
         return $this->getName();
     }

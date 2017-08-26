@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,77 +11,69 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class HomepageSettings
 {
+
     /**
-     * @var int
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int @ORM\Column(name="id", type="integer")
+     *      @ORM\Id
+     *      @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetimetz")
+     * @var \DateTime @ORM\Column(name="timestamp", type="datetimetz")
      */
     private $timestamp;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="user", type="string", length=255)
+     * @var string @ORM\Column(name="user", type="string", length=255)
      */
     private $user;
-    
+
     /**
-     * @var Recipe
-     * 
-     * @ORM\OneToOne(targetEntity="Recipe")
+     *
+     * @var Recipe @ORM\OneToOne(targetEntity="Recipe")
      */
     private $main_recipe;
-    
+
     /**
-     * @var bool
-     * @ORM\Column(name="main_recipe_use_latest", type="boolean")
+     *
+     * @var bool @ORM\Column(name="main_recipe_use_latest", type="boolean")
      */
     private $main_recipe_use_latest = true;
-    
+
     /**
-     * @var Recipe
-     * 
-     * @ORM\OneToOne(targetEntity="Recipe")
+     *
+     * @var Recipe @ORM\OneToOne(targetEntity="Recipe")
      */
     private $feature_one;
 
     /**
-     * @var Recipe
      *
-     * @ORM\OneToOne(targetEntity="Recipe")
+     * @var Recipe @ORM\OneToOne(targetEntity="Recipe")
      */
     private $feature_two;
-    
+
     /**
-     * @var Recipe
      *
-     * @ORM\OneToOne(targetEntity="Recipe")
+     * @var Recipe @ORM\OneToOne(targetEntity="Recipe")
      */
     private $feature_three;
-    
+
     /**
-     * @var Recipe
      *
-     * @ORM\OneToOne(targetEntity="Recipe")
+     * @var Recipe @ORM\OneToOne(targetEntity="Recipe")
      */
     private $feature_four;
-    
+
     /**
-     * @var boolean
-     * @ORM\Column(name="feature_recipes_use_latest", type="boolean")
+     *
+     * @var boolean @ORM\Column(name="feature_recipes_use_latest", type="boolean")
      */
     private $feature_recipes_use_latest = true;
-    
-    
+
     /**
      * Get id
      *
@@ -103,7 +94,7 @@ class HomepageSettings
     public function setTimestamp($timestamp)
     {
         $this->timestamp = $timestamp;
-
+        
         return $this;
     }
 
@@ -127,7 +118,7 @@ class HomepageSettings
     public function setUser($user)
     {
         $this->user = $user;
-
+        
         return $this;
     }
 
@@ -140,7 +131,9 @@ class HomepageSettings
     {
         return $this->user;
     }
+
     /**
+     *
      * @return the $main_recipe
      */
     public function getMainRecipe()
@@ -149,6 +142,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @return the $feature_one
      */
     public function getFeatureOne()
@@ -157,6 +151,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @return the $feature_two
      */
     public function getFeatureTwo()
@@ -165,6 +160,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @return the $feature_three
      */
     public function getFeatureThree()
@@ -173,6 +169,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @return the $feature_four
      */
     public function getFeatureFour()
@@ -181,6 +178,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Recipe $main_recipe
      */
     public function setMainRecipe($main_recipe)
@@ -191,6 +189,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Recipe $feature_one
      */
     public function setFeatureOne($feature_one)
@@ -201,6 +200,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Recipe $feature_two
      */
     public function setFeatureTwo($feature_two)
@@ -211,6 +211,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Recipe $feature_three
      */
     public function setFeatureThree($feature_three)
@@ -221,6 +222,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param \AppBundle\Entity\Recipe $feature_four
      */
     public function setFeatureFour($feature_four)
@@ -229,7 +231,9 @@ class HomepageSettings
         
         return $this;
     }
+
     /**
+     *
      * @return the $main_recipe_use_latest
      */
     public function getMainRecipeUseLatest()
@@ -238,6 +242,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @return the $feature_recipes_use_latest
      */
     public function getFeatureRecipesUseLatest()
@@ -246,6 +251,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param boolean $main_recipe_use_latest
      */
     public function setMainRecipeUseLatest($main_recipe_use_latest)
@@ -256,6 +262,7 @@ class HomepageSettings
     }
 
     /**
+     *
      * @param boolean $feature_recipes_use_latest
      */
     public function setFeatureRecipesUseLatest($feature_recipes_use_latest)
@@ -264,12 +271,5 @@ class HomepageSettings
         
         return $this;
     }
-
-    
-    
-
-    
-    
-    
 }
 

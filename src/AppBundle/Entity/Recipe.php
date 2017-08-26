@@ -3,8 +3,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
+/** 
  * Recipe
  *
  * @ORM\Table(name="recipe")
@@ -26,6 +27,12 @@ class Recipe
      * @var string @ORM\Column(name="title", type="string", length=255, unique=true)
      */
     private $title;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      *
@@ -50,47 +57,45 @@ class Recipe
      * @var \DateTime @ORM\Column(name="creation_date", type="datetime")
      */
     private $creationDate;
-    
+
     /**
      *
-     * @var string 
-     * @ORM\Column(name="uploaded_by", type="string")
+     * @var string @ORM\Column(name="uploaded_by", type="string")
      */
     private $uploadedBy;
-    
+
     /**
-     * @var MealType
-     * @ORM\ManyToOne(targetEntity="MealType")
+     *
+     * @var MealType @ORM\ManyToOne(targetEntity="MealType")
      */
     private $mealType;
 
     /**
      *
-     * @var IngredientPreparationCollection
-     * @ORM\OneToOne(targetEntity="IngredientPreparationCollection", inversedBy="recipe", cascade={"persist"})
+     * @var IngredientPreparationCollection @ORM\OneToOne(targetEntity="IngredientPreparationCollection", inversedBy="recipe", cascade={"persist"})
      */
     private $ingredientPreparationCollection;
 
     /**
      *
-     * @var ArrayCollection 
-     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes")
+     * @var ArrayCollection @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes")
      */
     private $ingredients;
-    
+
     /**
-     * @var RecipeStepCollection
-     * @ORM\OneToOne(targetEntity="RecipeStepCollection", cascade={"persist"})
+     *
+     * @var RecipeStepCollection @ORM\OneToOne(targetEntity="RecipeStepCollection", cascade={"persist"})
      */
     private $recipeStepCollection;
-    
+
     /**
-     * @var ImageCollection
-     * @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"});
+     *
+     * @var ImageCollection @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"});
      */
     private $imageCollection;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->ingredients = new ArrayCollection();
     }
 
@@ -231,7 +236,7 @@ class Recipe
         $ingredientPreparationCollection->setRecipe($this);
         
         foreach ($ingredientPreparationCollection->getIngredientPreparations() as $ingredientPreparation) {
-            if(!$this->ingredients->contains($ingredientPreparation->getIngredient())) {
+            if (! $this->ingredients->contains($ingredientPreparation->getIngredient())) {
                 $this->ingredients->add($ingredientPreparation->getIngredient());
             }
         }
@@ -248,7 +253,9 @@ class Recipe
     {
         return $this->ingredientPreparationCollection;
     }
+
     /**
+     *
      * @return the $uploadedBy
      */
     public function getUploadedBy()
@@ -257,6 +264,7 @@ class Recipe
     }
 
     /**
+     *
      * @return the $recipeStepCollection
      */
     public function getRecipeStepCollection()
@@ -265,6 +273,7 @@ class Recipe
     }
 
     /**
+     *
      * @return the $imageCollection
      */
     public function getImageCollection()
@@ -273,6 +282,7 @@ class Recipe
     }
 
     /**
+     *
      * @param string $uploadedBy
      */
     public function setUploadedBy($uploadedBy)
@@ -283,6 +293,7 @@ class Recipe
     }
 
     /**
+     *
      * @param \AppBundle\Entity\RecipeStepCollection $recipeStepCollection
      */
     public function setRecipeStepCollection(RecipeStepCollection $recipeStepCollection)
@@ -293,6 +304,7 @@ class Recipe
     }
 
     /**
+     *
      * @param \AppBundle\Entity\ImageCollection $imageCollection
      */
     public function setImageCollection($imageCollection)
@@ -301,8 +313,9 @@ class Recipe
         
         return $this;
     }
-    
+
     /**
+     *
      * @return the $mealType
      */
     public function getMealType()
@@ -311,6 +324,7 @@ class Recipe
     }
 
     /**
+     *
      * @param \AppBundle\Entity\MealType $mealType
      */
     public function setMealType(MealType $mealType)
@@ -320,10 +334,17 @@ class Recipe
         return $this;
     }
 
-    public function __toString() {
-        return $this->getTitle();
+    /**
+     *
+     * @return the $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
-    
-    
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

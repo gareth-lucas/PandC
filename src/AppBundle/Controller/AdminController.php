@@ -141,11 +141,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/recipe/{name}", name="admin_recipe")
+     * @Route("/admin/recipe/{slug}", name="admin_recipe")
      *
      * @param Request $request
      */
-    public function recipeAction(Request $request, FileUploader $fileUploader, $name = null)
+    public function recipeAction(Request $request, FileUploader $fileUploader, $slug = null)
     {
         $em = $this->getDoctrine()->getManager();
         $recipes = $em->getRepository(Recipe::class)->findBy([], [
@@ -154,8 +154,8 @@ class AdminController extends Controller
         
         $recipe = new Recipe();
         $isNew = true;
-        if ($name) {
-            $recipe = $em->getRepository(Recipe::class)->findOneByTitle($name);
+        if ($slug) {
+            $recipe = $em->getRepository(Recipe::class)->findOneBySlug($slug);
             $isNew = false;
         }
         

@@ -11,11 +11,20 @@
 		<div class="row">
     		<div class="col-md-3 background-inverse">
     			<ul>
-    				<li>Manage Ingredients</li>
-    				<li>Manage Recipes</li>
-    				<li>Manage Preparations</li>
-    				<li>Manage Homepage</li>
+    				<li><a href="{{ path("admin_recipe") }}">Manage Recipes</a></li>
+    				<li><a href="{{ path("admin_ingredient") }}">Manage Ingredients</a></li>    				
+    				<li><a href="{{ path("admin_preparation") }}">Manage Preparations</a></li>
+    				<li><a href="{{ path("admin_uom") }}">Manage Measurements</a></li>
+    				<li><a href="{{ path("admin_mealtype") }}">Manage Mealtypes</a></li>
     			</ul>
+    			
+    			<ul>
+    				<li><a href="{{ path("admin_homepage") }}">Manage Homepage</a></li>
+    			</ul>
+    			
+    			<ul>
+    				<li><a href="{{ path("homepage") }}">Home</a></li>
+    			</ul>    			
     		</div>
     		
     		<!-- Main Page Area -->
