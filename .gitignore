@@ -45,3 +45,6 @@
 
 # Eclipse Rubbish
 /.settings/
+
+#uploads
+/web/upload/

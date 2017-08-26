@@ -5,7 +5,8 @@
 {% form_theme form with [
 	'bootstrap_3_horizontal_layout.html.twig',
 	'::form/fields/imageCollection.html.twig',
-	'::form/fields/ingredientPreparationCollection.html.twig'
+	'::form/fields/ingredientPreparationCollection.html.twig',
+	'::form/fields/recipeStepCollection.html.twig'
 
 ] %}
 
@@ -13,7 +14,19 @@
 <h2>Create New Recipe</h2>
 
 {{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.preparationTime) }}
+    {{ form_row(form.cookingTime) }}
+    {{ form_row(form.ingredientPreparationCollection.ingredientPreparation) }}
+    {{ form_row(form.recipeStepCollection.recipeSteps) }}
+{{ form_end(form, {"render_rest":false}) }}
 
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% javascripts 	"resources/js/recipe.js" %}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

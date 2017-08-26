@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\ImageCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Image
@@ -51,6 +52,11 @@ class Image
      * @var string @ORM\Column(name="image_filepath", type="string", length=255)
      */
     private $imageFilepath;
+    
+    /**
+     * @var File
+     */
+    private $image;
 
     /**
      *
@@ -208,6 +214,16 @@ class Image
     {
         $this->imageCollections->removeElement($imageCollection);
         return $this;
+    }
+    
+    public function setImage(File $file) {
+        $this->image = $file;
+        
+        return $this;
+    }
+    
+    public function getImage() {
+        return $this->image;
     }
 }
 

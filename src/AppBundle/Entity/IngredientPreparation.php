@@ -37,9 +37,15 @@ class IngredientPreparation
     
     /**
      * @var Preparation
-     * @ORM\ManyToOne(targetEntity="Preparation", inversedBy="ingredient")
+     * @ORM\ManyToOne(targetEntity="Preparation")
      */
     private $preparation;
+    
+    /**
+     * @var UnitOfMeasure
+     * @ORM\ManyToOne(targetEntity="UnitOfMeasure")
+     */
+    private $uom;
     
     /**
      * @var IngredientPreparationCollection
@@ -204,4 +210,24 @@ class IngredientPreparation
     {
         $this->recipes->removeElement($recipe);
     }
+    /**
+     * @return the $uom
+     */
+    public function getUom()
+    {
+        return $this->uom;
+    }
+
+    /**
+     * @param \AppBundle\Entity\UnitOfMeasure $uom
+     */
+    public function setUom(UnitOfMeasure $uom)
+    {
+        $this->uom = $uom;
+        
+        return $this;
+    }
+
+    
+    
 }

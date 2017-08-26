@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 class RecipeType extends AbstractType
 {
@@ -19,11 +20,13 @@ class RecipeType extends AbstractType
     {
         $builder->add('title')
         ->add('description')
-        ->add('preparationTime', DateTimeType::class, [
-            'required'=>false
+        ->add('preparationTime', TimeType::class, [
+            'required'=>false,
+            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]
         ])
-        ->add('cookingTime', DateTimeType::class, [
-            'required'=>false
+        ->add('cookingTime', TimeType::class, [
+            'required'=>false,
+            'minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]
         ])
         ->add('uploadedBy', HiddenType::class)
         ->add('creationDate', HiddenType::class)

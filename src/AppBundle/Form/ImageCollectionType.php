@@ -19,7 +19,8 @@ class ImageCollectionType extends AbstractType
         $builder->add('images', CollectionType::class, [
             "entry_type"=>ImageType::class,
             "by_reference"=>false,
-            "allow_add"=>true
+            "allow_add"=>true,
+            "allow_delete"=>true
         ])
         ->add('submit', SubmitType::class);
     }

@@ -1,0 +1,29 @@
+{% macro ingredientPreparationTemplate(fields) %}
+	<div class="well">	
+        <div class="row">
+        	<div class="form-group">
+        		<div class="col-sm-12">
+    				{{ form_widget(fields.quantity, {"attr": {"placeholder":"form.recipe.ingredientpreparation.quantity", "style":"width: 100px; display:inline"}}) }}
+    				{{ form_widget(fields.uom, {"attr": {"placeholder":"form.recipe.ingredientpreparation.unit", "style":"width: 150px; display:inline;"}}) }}
+    				{{ form_widget(fields.preparation, {"attr": {"placeholder":"form.recipe.ingredientpreparation.preparation", "style":"width: 150px; display:inline;"}}) }}
+    				{{ form_widget(fields.ingredient, {"attr": {"placeholder":"form.recipe.ingredientpreparation.ingredient", "style":"width: 200px; display:inline;"}}) }}
+				</div>
+            </div>
+        </div>
+	</div>
+{% endmacro %}
+
+{# 
+   The block name must match your field name!
+   You can find it by going into the debug toolbar -> Forms -> 
+   click on your form field and then search for "unique_block_prefix". 
+   Copy that and add "_widget" at the end.
+#}
+
+{% block _appbundle_recipe_ingredientPreparationCollection_ingredientPreparation_widget %}
+    <div id="appbundle_recipe_ingredientpreparationcollection_ingredientpreparation" class="well" data-prototype="{{ _self.ingredientPreparationTemplate(form.vars.prototype)|e }}">
+        {% for fields in form.children %}
+            {{ _self.ingredientPreparationTemplate(fields) }}
+        {% endfor %}
+    </div>
+{% endblock %}

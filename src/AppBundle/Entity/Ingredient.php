@@ -51,8 +51,6 @@ class Ingredient
     {
         $this->ingredientPreparations = new ArrayCollection();
         $this->recipes = new ArrayCollection();
-        
-        $this->setImageCollection(new ImageCollection());
     }
 
     /**
@@ -203,14 +201,24 @@ class Ingredient
         $this->recipes->removeElement($recipe);
     }
 
-    public function setImageCollection(ImageCollection $imageCollection)
+    public function setImageCollection($imageCollection)
     {
         $this->imageCollection = $imageCollection;
+        return $this;
+    }
+    
+    public function unsetImageCollection() {
+        unset($this->imageCollection);
+        
         return $this;
     }
 
     public function getImageCollection()
     {
         return $this->imageCollection;
+    }
+    
+    public function __toString() {
+        return $this->name;
     }
 }

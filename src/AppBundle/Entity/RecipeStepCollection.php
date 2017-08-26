@@ -31,6 +31,13 @@ class RecipeStepCollection
     public function __construct() {
         $this->recipeSteps = new ArrayCollection();
     }
+    
+    /**
+     * 
+     * @var Recipe
+     * @ORM\OneToOne(targetEntity="Recipe")
+     */
+    private $recipe;
 
     /**
      * Get id
@@ -69,6 +76,26 @@ class RecipeStepCollection
         
         return $this;
     }
+    /**
+     * @return the $recipe
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Recipe $recipe
+     */
+    public function setRecipe($recipe)
+    {
+        $this->recipe = $recipe;
+        
+        return $this;
+    }
+
+    
+    
 
     
     

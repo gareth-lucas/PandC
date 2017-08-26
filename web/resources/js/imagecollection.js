@@ -7,6 +7,11 @@ var $newLinkDiv = $('<div></div>').append($addImageLink);
 jQuery(document).ready(function() {
 	 // Get the ul that holds the collection of tags
  $collectionHolder = $('#appbundle_imagecollection_images');
+ 
+ // add a delete link to all of the existing tag form li elements
+// $collectionHolder.find('div.well').each(function() {
+//     addImageDeleteLink($(this));
+// });
 
  // add the "add a tag" anchor and li to the tags ul
  $collectionHolder.append($newLinkDiv);
@@ -24,8 +29,29 @@ jQuery(document).ready(function() {
      
      // add the fileselect handler
      addFileHandler();
+     
+//     // add image delete link
+//     addImageDeleteLink($(this));
  });
 });
+
+function remove(element) {
+	$me = $(element);
+	$me.closest(".well").remove();
+}
+
+function addImageDeleteLink($toDelete) {
+    var $removeFormA = $('<a href="#">delete this image</a>');
+    $toDelete.append($removeFormA);
+
+    $removeFormA.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // remove the li for the tag form
+        $toDelete.remove();
+    });
+}
 
 function addImageForm($collectionHolder, $newLinkDiv) {
     // Get the data-prototype explained earlier

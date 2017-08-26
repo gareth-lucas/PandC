@@ -12,17 +12,20 @@ use AppBundle\Form\ImageCollectionType;
 use AppBundle\Entity\HomepageSettings;
 use AppBundle\Form\HomepageSettingsType;
 use AppBundle\Form\RecipeType;
+use AppBundle\Service\FileUploader;
 use AppBundle\Entity\Recipe;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use AppBundle\Entity\RecipeStepCollection;
+use AppBundle\Entity\RecipeStep;
 
 // have to do this...
-
 class AdminController extends Controller
 {
 
     /**
-     * @Route("/admin/ingredient", name="admin_ingredient")
+     * @Route("/admin/ingredient/{name}", name="admin_ingredient")
      */
-    public function ingredientAction(Request $request)
+    public function ingredientAction(Request $request, FileUploader $fileUploader, $name = null)
     {
         $em = $this->getDoctrine()->getManager();
         $ingredients = $em->getRepository(Ingredient::class)->findBy([], [
@@ -30,6 +33,9 @@ class AdminController extends Controller
         ]);
         
         $ingredient = new Ingredient();
+        if ($name) {
+            $ingredient = $em->getRepository(Ingredient::class)->findOneByName($name);
+        }
         
         $form = $this->createForm(IngredientType::class, $ingredient);
         
@@ -38,9 +44,18 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $ingredient = $form->getData();
             foreach ($ingredient->getImageCollection()->getImages() as $image) {
-                $image->setImageFormat("jpg");
-                $image->setImageSize("100");
-                $image->setImageFilepath("/here/there/everywhere/file.jpg");
+                $file = $image->getImage();
+                $image->setImageFormat($file->guessExtension());
+                $image->setImageSize($file->getSize());
+                try {
+                $filename = $fileUploader->upload($file);
+                } catch (UploadException $em) {
+                    die($em->getMessage());
+                }
+                $image->setImageFilepath($filename);
+            }
+            if (count($ingredient->getImageCollection()->getImages()) == 0) {
+                $ingredient->setImageCollection(null);
             }
             $em->persist($ingredient);
             $em->flush();
@@ -87,7 +102,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/homepage", name="admin_homepage")
-     * 
+     *
      * @param Request $request
      */
     public function homepageAction(Request $request)
@@ -121,12 +136,17 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/recipe", name="admin_recipe")
-     * 
+     *
      * @param Request $request
      */
     public function recipeAction(Request $request)
     {
-        $form = $this->createForm(RecipeType::class, new Recipe());
+        $recipe = new Recipe();
+//         $rsc = new RecipeStepCollection();
+//         $rsc->addRecipeStep(new RecipeStep());
+//         $recipe->setRecipeStepCollection($rsc);
+        
+        $form = $this->createForm(RecipeType::class, $recipe);
         
         $form->handleRequest($request);
         
