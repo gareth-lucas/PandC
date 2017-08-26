@@ -47,7 +47,7 @@ class Recipe
 
     /**
      *
-     * @var \DateTime @ORM\Column(name="creation_date", type="date")
+     * @var \DateTime @ORM\Column(name="creation_date", type="datetime")
      */
     private $creationDate;
     
@@ -57,11 +57,17 @@ class Recipe
      * @ORM\Column(name="uploaded_by", type="string")
      */
     private $uploadedBy;
+    
+    /**
+     * @var MealType
+     * @ORM\ManyToOne(targetEntity="MealType")
+     */
+    private $mealType;
 
     /**
      *
      * @var IngredientPreparationCollection
-     * @ORM\OneToOne(targetEntity="IngredientPreparationCollection", inversedBy="recipe")
+     * @ORM\OneToOne(targetEntity="IngredientPreparationCollection", inversedBy="recipe", cascade={"persist"})
      */
     private $ingredientPreparationCollection;
 
@@ -74,15 +80,19 @@ class Recipe
     
     /**
      * @var RecipeStepCollection
-     * @ORM\OneToOne(targetEntity="RecipeStepCollection")
+     * @ORM\OneToOne(targetEntity="RecipeStepCollection", cascade={"persist"})
      */
     private $recipeStepCollection;
     
     /**
      * @var ImageCollection
-     * @ORM\OneToOne(targetEntity="ImageCollection");
+     * @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"});
      */
     private $imageCollection;
+    
+    public function __construct() {
+        $this->ingredients = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -220,8 +230,10 @@ class Recipe
         $this->ingredientPreparationCollection = $ingredientPreparationCollection;
         $ingredientPreparationCollection->setRecipe($this);
         
-        foreach ($ingredientPreparationCollection->getIngredientPreparation() as $ingredientPreparation) {
-            $this->ingredients->add($ingredientPreparation->getIngredient());
+        foreach ($ingredientPreparationCollection->getIngredientPreparations() as $ingredientPreparation) {
+            if(!$this->ingredients->contains($ingredientPreparation->getIngredient())) {
+                $this->ingredients->add($ingredientPreparation->getIngredient());
+            }
         }
         
         return $this;
@@ -276,7 +288,6 @@ class Recipe
     public function setRecipeStepCollection(RecipeStepCollection $recipeStepCollection)
     {
         $this->recipeStepCollection = $recipeStepCollection;
-        $recipeStepCollection->setRecipe($this);
         
         return $this;
     }
@@ -284,11 +295,33 @@ class Recipe
     /**
      * @param \AppBundle\Entity\ImageCollection $imageCollection
      */
-    public function setImageCollection(ImageCollection $imageCollection)
+    public function setImageCollection($imageCollection)
     {
         $this->imageCollection = $imageCollection;
         
         return $this;
+    }
+    
+    /**
+     * @return the $mealType
+     */
+    public function getMealType()
+    {
+        return $this->mealType;
+    }
+
+    /**
+     * @param \AppBundle\Entity\MealType $mealType
+     */
+    public function setMealType(MealType $mealType)
+    {
+        $this->mealType = $mealType;
+        
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->getTitle();
     }
 
     

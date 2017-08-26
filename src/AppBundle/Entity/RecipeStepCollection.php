@@ -24,20 +24,13 @@ class RecipeStepCollection
     
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="RecipeStep", mappedBy="recipeStepCollection")
+     * @ORM\OneToMany(targetEntity="RecipeStep", mappedBy="recipeStepCollection", cascade={"persist"})
      */
     private $recipeSteps;
     
     public function __construct() {
         $this->recipeSteps = new ArrayCollection();
     }
-    
-    /**
-     * 
-     * @var Recipe
-     * @ORM\OneToOne(targetEntity="Recipe")
-     */
-    private $recipe;
 
     /**
      * Get id
@@ -63,7 +56,6 @@ class RecipeStepCollection
     public function addRecipeStep(RecipeStep $recipeStep)
     {
         $this->recipeSteps->add($recipeStep);
-        $recipeStep->setRecipeStepCollection($this);
         
         return $this;
     }
@@ -76,28 +68,5 @@ class RecipeStepCollection
         
         return $this;
     }
-    /**
-     * @return the $recipe
-     */
-    public function getRecipe()
-    {
-        return $this->recipe;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Recipe $recipe
-     */
-    public function setRecipe($recipe)
-    {
-        $this->recipe = $recipe;
-        
-        return $this;
-    }
-
-    
-    
-
-    
-    
 }
 

@@ -93,5 +93,9 @@ class UnitOfMeasure
     {
         return $this->abbreviation;
     }
+    
+    public function __toString() {
+        return $this->getAbbreviation()." (".$this->getName().")";
+    }
 }
 

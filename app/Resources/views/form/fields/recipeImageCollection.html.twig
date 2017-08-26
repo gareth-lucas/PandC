@@ -1,0 +1,37 @@
+{% macro imageTemplate(fields) %}
+	<div class="well">	
+        <div class="row">
+        	<div class="form-group">
+        		{{ form_label(fields.image) }}
+        		<div class="col-sm-10">        		
+        			<div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                                Browse&hellip; {{ form_widget(fields.image, {"attr": {"style":"display:none;"}}) }}
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+    		{{ form_row(fields.imageCaption) }}
+    		{{ form_row(fields.imageCopyright) }}
+    		<div class="pull-right"><a href="#" onclick="remove(this)">Remove</a></div>
+        </div>
+	</div>
+{% endmacro %}
+
+{# 
+   The block name must match your field name!
+   You can find it by going into the debug toolbar -> Forms -> 
+   click on your form field and then search for "unique_block_prefix". 
+   Copy that and add "_widget" at the end.
+#}
+
+{% block _appbundle_recipe_imageCollection_images_widget %}
+    <div id="appbundle_recipe_imagecollection_images" data-prototype="{{ _self.imageTemplate(form.vars.prototype)|e }}">
+        {% for fields in form.children %}
+            {{ _self.imageTemplate(fields) }}
+        {% endfor %}
+    </div>
+{% endblock %}

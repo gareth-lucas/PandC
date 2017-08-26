@@ -24,7 +24,7 @@ class IngredientPreparationCollection
     
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="IngredientPreparation", mappedBy="ingredientPreparationCollection")
+     * @ORM\ManyToMany(targetEntity="IngredientPreparation", cascade={"persist"})
      */
     private $ingredientPreparations;
     
@@ -60,7 +60,7 @@ class IngredientPreparationCollection
      */
     public function addIngredientPreparation(\AppBundle\Entity\IngredientPreparation $ingredientPreparation)
     {
-        $this->ingredientPreparation[] = $ingredientPreparation;
+        $this->ingredientPreparations[] = $ingredientPreparation;
         $ingredientPreparation->setIngredientPreparationCollection($this);
 
         return $this;
@@ -73,7 +73,7 @@ class IngredientPreparationCollection
      */
     public function removeIngredientPreparation(\AppBundle\Entity\IngredientPreparation $ingredientPreparation)
     {
-        $this->ingredientPreparation->removeElement($ingredientPreparation);
+        $this->ingredientPreparations->removeElement($ingredientPreparation);
     }
 
     /**
@@ -81,9 +81,9 @@ class IngredientPreparationCollection
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
-    public function getIngredientPreparation()
+    public function getIngredientPreparations()
     {
-        return $this->ingredientPreparation;
+        return $this->ingredientPreparations->toArray();
     }
 
     /**

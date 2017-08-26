@@ -85,7 +85,7 @@ class FileUploader
         \imagejpeg($image, $folder."/"."thumb.jpg");
         \imagedestroy($image);
 
-        return $folder;
+        return substr($folder, strpos($folder, "web"));
     }
     
     public function getTargetDir()

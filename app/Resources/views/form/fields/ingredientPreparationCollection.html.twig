@@ -3,10 +3,10 @@
         <div class="row">
         	<div class="form-group">
         		<div class="col-sm-12">
-    				{{ form_widget(fields.quantity, {"attr": {"placeholder":"form.recipe.ingredientpreparation.quantity", "style":"width: 100px; display:inline"}}) }}
-    				{{ form_widget(fields.uom, {"attr": {"placeholder":"form.recipe.ingredientpreparation.unit", "style":"width: 150px; display:inline;"}}) }}
-    				{{ form_widget(fields.preparation, {"attr": {"placeholder":"form.recipe.ingredientpreparation.preparation", "style":"width: 150px; display:inline;"}}) }}
-    				{{ form_widget(fields.ingredient, {"attr": {"placeholder":"form.recipe.ingredientpreparation.ingredient", "style":"width: 200px; display:inline;"}}) }}
+    				{{ form_widget(fields.quantity, {"attr": {"placeholder":"form.recipe.ingredientpreparations.quantity", "style":"width: 100px; display:inline"}}) }}
+    				{{ form_widget(fields.uom, {"attr": {"placeholder":"form.recipe.ingredientpreparations.unit", "style":"width: 150px; display:inline;"}}) }}
+    				{{ form_widget(fields.preparation, {"attr": {"placeholder":"form.recipe.ingredientpreparations.preparation", "style":"width: 150px; display:inline;"}}) }}
+    				{{ form_widget(fields.ingredient, {"attr": {"placeholder":"form.recipe.ingredientpreparations.ingredient", "style":"width: 200px; display:inline;"}}) }}
 				</div>
             </div>
         </div>
@@ -20,8 +20,8 @@
    Copy that and add "_widget" at the end.
 #}
 
-{% block _appbundle_recipe_ingredientPreparationCollection_ingredientPreparation_widget %}
-    <div id="appbundle_recipe_ingredientpreparationcollection_ingredientpreparation" class="well" data-prototype="{{ _self.ingredientPreparationTemplate(form.vars.prototype)|e }}">
+{% block _appbundle_recipe_ingredientPreparationCollection_ingredientPreparations_widget %}
+    <div id="appbundle_recipe_ingredientpreparationcollection_ingredientpreparations" class="well" data-prototype="{{ _self.ingredientPreparationTemplate(form.vars.prototype)|e }}">
         {% for fields in form.children %}
             {{ _self.ingredientPreparationTemplate(fields) }}
         {% endfor %}

@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block _appbundle_recipe_recipeStepCollection_recipeSteps_entry_imageCollection_images_widget %}
-    <div id="appbundle_recipe_recipeStepCollection_recipeStep_imageCollection_images" class="well" data-prototype="{{ _self.imageTemplate(form.vars.prototype)|e }}">
+    <div class="appbundle_recipe_recipeStepCollection_recipeStep_imageCollection_images well" data-prototype="{{ _self.imageTemplate(form.vars.prototype)|e }}">
         {% for fields in form.children %}
             {{ _self.imageTemplate(fields) }}
         {% endfor %}

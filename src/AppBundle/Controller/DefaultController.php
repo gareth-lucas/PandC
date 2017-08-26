@@ -5,6 +5,7 @@ use AppBundle\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\HomepageSettings;
 
 class DefaultController extends Controller
 {
@@ -14,14 +15,50 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // get homepage recipes from the database
         $em = $this->getDoctrine()->getManager();
-        $recipes = $em->getRepository(Recipe::class)->findFeaturedRecipes(4);
+        $homepageParams = $em->getRepository(HomepageSettings::class)->findAll([], [
+            'timestamp' => "DESC"
+        ], 1);
+        
+        if (! $homepageParams) {
+            $homepageParams = new HomepageSettings();
+        }
+        
+        if ($homepageParams->getMainRecipeUseLatest()) {
+            // main recipe uses latest recipe...
+            $mainRecipe = $em->getRepository(Recipe::class)->findBy([], [
+                "creationDate" => "DESC"
+            ], 1)[0];
+            $mainImage = "";
+            
+            $imageCollection = $mainRecipe->getImageCollection();
+
+            if ($imageCollection) {
+                $images = $imageCollection->getImages();
+                $mainImage = $images[0]->getImageFilepath() . "/banner.jpg";
+            }
+        }
+        
+        if ($homepageParams->getFeatureRecipesUseLatest()) {
+            // featured recipes use latest...
+            $featuredRecipes = $em->getRepository(Recipe::class)->findBy([], [
+                "creationDate" => "DESC"
+            ], 4);
+            
+            $featuredImages = [];
+            foreach($featuredRecipes as $recipe) {
+                if($recipe->getImageCollection()) {
+                    $featuredImages[] = $recipe->getimageCollection()->getimages()[0]->getImageFilepath();
+                }
+            }
+        }        
         
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
-            'recipes' => $recipes
+            'mainRecipe' => $mainRecipe,
+            'mainImage' => $mainImage,
+            'featuredRecipes' => $featuredRecipes,
+            'featuredImages' => $featuredImages
         ]);
     }
 }

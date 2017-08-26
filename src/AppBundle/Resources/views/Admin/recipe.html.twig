@@ -6,20 +6,60 @@
 	'bootstrap_3_horizontal_layout.html.twig',
 	'::form/fields/imageCollection.html.twig',
 	'::form/fields/ingredientPreparationCollection.html.twig',
-	'::form/fields/recipeStepCollection.html.twig'
+	'::form/fields/recipeStepCollection.html.twig',
+	'::form/fields/recipeImageCollection.html.twig'
 
 ] %}
 
 {% block adminpage %}
+<h3>Recipes</h3>
+<div class="well pre-scrollable" style="height: 400px;">
+	
+    <table class="table">
+    	<thead>
+        	<tr>
+        		<th>{{ 'admin.recipe.table.title' | trans }}</th>
+        		<th>{{ 'admin.recipe.table.actions' | trans }}</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	{% for r in recipes %}
+        	<tr>
+        		<td class="filterable-cell">{{ r.title }}</td>
+        		<td>
+        			<a href="{{ path("admin_recipe", {"name":r.title}) }}">edit</a>
+        			<a href="#">delete</a>
+        		</td>
+        	</tr>
+        	{% else %}
+        	<tr>
+        		<td colspan="2">{{ 'admin.recipe.table.no_data' | trans }}</td>
+        	</tr>
+        	{% endfor %}
+    	</tbody>
+    </table>
+</div>
+
+{% if isNew == true %}
+<h3>Add New Recipe</h3>
+{% else %}
+<a class="pull-right" href="{{ path("admin_recipe") }}">Create New</a>
+<h3>Modify Recipe</h3>
+{% endif %}
+
 <h2>Create New Recipe</h2>
 
 {{ form_start(form) }}
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
+    {{ form_row(form.mealType) }}
     {{ form_row(form.preparationTime) }}
     {{ form_row(form.cookingTime) }}
-    {{ form_row(form.ingredientPreparationCollection.ingredientPreparation) }}
+    {{ form_row(form.ingredientPreparationCollection.ingredientPreparations) }}
     {{ form_row(form.recipeStepCollection.recipeSteps) }}
+    {{ form_row(form.imageCollection.images) }}
+    {{ form_row(form.submit) }}
+    {{ form_row(form._token) }}
 {{ form_end(form, {"render_rest":false}) }}
 
 {% endblock %}

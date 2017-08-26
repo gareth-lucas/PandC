@@ -1,0 +1,55 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% form_theme form with [
+	'bootstrap_3_horizontal_layout.html.twig',
+
+] %}
+
+{% block adminpage %}
+<h2>Create New Measurement</h2>
+
+<h3>Measurements already managed</h3>
+<div class="well pre-scrollable" style="height: 400px;">
+	
+    <table class="table">
+    	<thead>
+        	<tr>
+        		<th>{{ 'admin.uom.table.name' | trans }}</th>
+        		<th>{{ 'admin.uom.table.abbreviation' | trans }}</th>
+        		<th>{{ 'admin.uom.table.actions' | trans }}</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	{% for u in uom %}
+        	<tr>
+        		<td class="filterable-cell">{{ u.name }}</td>
+        		<td class="filterable-cell">{{ u.abbreviation }}</td>
+        		<td>
+        			<a href="{{ path("admin_uom", {"name":u.name}) }}">edit</a>
+        			<a href="#">delete</a>
+        		</td>
+        	</tr>
+        	{% else %}
+        	<tr>
+        		<td colspan="2">{{ 'admin.uom.table.no_data' | trans }}</td>
+        	</tr>
+        	{% endfor %}
+    	</tbody>
+    </table>
+</div>
+
+{% if isNew == true %}
+<h3>Add New Measurement</h3>
+{% else %}
+<a class="pull-right" href="{{ path("admin_uom") }}">Create New</a>
+<h3>Modify Measurement</h3>
+{% endif %}
+
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.abbreviation) }}
+{{ form_end(form) }}
+
+{% endblock %}

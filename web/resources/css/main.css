@@ -9,3 +9,9 @@ div.background-inverse {
 	color: #DDD;
 	background-color: #333;
 }
+
+input.search {
+	margin: 100px 30% 0 30%;
+	width: 40%;
+	background-color: rgba(255, 255, 255, 0.8);
+}

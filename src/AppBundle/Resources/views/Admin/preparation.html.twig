@@ -1,0 +1,52 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% form_theme form with [
+	'bootstrap_3_horizontal_layout.html.twig',
+
+] %}
+
+{% block adminpage %}
+<h2>Create New Preparation</h2>
+
+<h3>Preparations already managed</h3>
+<div class="well pre-scrollable" style="height: 400px;">
+	
+    <table class="table">
+    	<thead>
+        	<tr>
+        		<th>{{ 'admin.preparation.table.name' | trans }}</th>
+        		<th>{{ 'admin.preparation.table.actions' | trans }}</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	{% for p in preparations %}
+        	<tr>
+        		<td class="filterable-cell">{{ p.name }}</td>
+        		<td>
+        			<a href="{{ path("admin_preparation", {"name":p.name}) }}">edit</a>
+        			<a href="#">delete</a>
+        		</td>
+        	</tr>
+        	{% else %}
+        	<tr>
+        		<td colspan="2">{{ 'admin.preparation.table.no_data' | trans }}</td>
+        	</tr>
+        	{% endfor %}
+    	</tbody>
+    </table>
+</div>
+
+{% if isNew == true %}
+<h3>Add New Preparation</h3>
+{% else %}
+<a class="pull-right" href="{{ path("admin_preparation") }}">Create New</a>
+<h3>Modify Preparation</h3>
+{% endif %}
+
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+{{ form_end(form) }}
+
+{% endblock %}

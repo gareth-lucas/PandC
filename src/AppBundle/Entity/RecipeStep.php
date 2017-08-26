@@ -36,7 +36,7 @@ class RecipeStep
     
     /**
      * @var ImageCollection
-     * @ORM\OneToOne(targetEntity="ImageCollection")
+     * @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"})
      */
     private $imageCollection;
 
@@ -102,7 +102,7 @@ class RecipeStep
     /**
      * @param \AppBundle\Entity\ImageCollection $imageCollection
      */
-    public function setImageCollection(ImageCollection $imageCollection)
+    public function setImageCollection($imageCollection)
     {
         $this->imageCollection = $imageCollection;
         

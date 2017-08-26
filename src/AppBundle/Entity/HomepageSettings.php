@@ -46,7 +46,7 @@ class HomepageSettings
      * @var bool
      * @ORM\Column(name="main_recipe_use_latest", type="boolean")
      */
-    private $main_recipe_use_latest;
+    private $main_recipe_use_latest = true;
     
     /**
      * @var Recipe
@@ -80,7 +80,7 @@ class HomepageSettings
      * @var boolean
      * @ORM\Column(name="feature_recipes_use_latest", type="boolean")
      */
-    private $feature_recipes_use_latest;
+    private $feature_recipes_use_latest = true;
     
     
     /**

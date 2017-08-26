@@ -46,12 +46,6 @@ class IngredientPreparation
      * @ORM\ManyToOne(targetEntity="UnitOfMeasure")
      */
     private $uom;
-    
-    /**
-     * @var IngredientPreparationCollection
-     * @ORM\OneToOne(targetEntity="IngredientPreparationCollection")
-     */
-    private $ingredientPreparationCollection;
 
     public function __construct() {
         $this->recipes = new ArrayCollection();
@@ -98,9 +92,9 @@ class IngredientPreparation
      *
      * @return IngredientPreparation
      */
-    public function addIngredientPreparationList(\AppBundle\Entity\IngredientPreparationCollection $ingredientPreparationCollection = null)
+    public function setIngredientPreparationCollection(\AppBundle\Entity\IngredientPreparationCollection $ingredientPreparationCollection = null)
     {
-        $this->ingredientPreparationCollections->add($ingredientPreparationCollection);
+        $this->ingredientPreparationCollection = $ingredientPreparationCollection;
 
         return $this;
     }
