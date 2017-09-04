@@ -48,6 +48,7 @@
 {% endif %}
 
 {{ form_start(form) }}
+    {{ form_errors(form) }}
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.mealType) }}
@@ -55,7 +56,7 @@
     {{ form_row(form.cookingTime) }}
     {{ form_row(form.ingredientPreparationCollection.ingredientPreparations) }}
     {{ form_row(form.recipeStepCollection.recipeSteps) }}
-    {{ form_row(form.imageCollection.images) }}
+    {{ form_row(form.imageCollection.images, {"isNew":isNew}) }} 
     {{ form_row(form.submit) }}
     {{ form_row(form._token) }}
 {{ form_end(form, {"render_rest":false}) }}
@@ -63,8 +64,13 @@
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript">
+auto_complete_source = "{{ path('admin_autocomplete_ingredient') }}";
+</script>
+
 {{ parent() }}
-{% javascripts 	"resources/js/recipe.js" %}
+{% javascripts 	"resources/vendor/jquery-ui/jquery-ui.min.js"
+                "resources/js/recipe.js" %}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}

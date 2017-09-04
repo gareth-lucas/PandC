@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     upload_directory: '%kernel.project_dir%/web/upload'
+    web_upload_directory: 'upload'
 
 framework:
     #esi: ~
@@ -21,7 +22,7 @@ framework:
     validation: { enable_annotations: true }
     #serializer: { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ['twig','php']
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -82,3 +83,20 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true   
+            
+ivory_ck_editor:
+    configs:
+        my_config:
+            #toolbar: [ ["Source", "-", "Save"], "/", ["Anchor"], "/", ["Maximize"] ]
+            toolbar: full
+            uiColor:  "#FFFFFF"
+            filebrowserUploadRoute: "blog_admin"
+            
+ivory_ck_editor:
+    default_config: my_config
+    configs:
+        my_config:
+            filebrowserBrowseRoute:           "blog_admin"
+            filebrowserBrowseRouteParameters: { slug: "my-slug" }
+            filebrowserBrowseRouteType:       0            
+               

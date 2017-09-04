@@ -50,7 +50,7 @@ class Ingredient
     /**
      *
      * @var ImageCollection 
-     * @ORM\ManyToOne(targetEntity="ImageCollection", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ImageCollection", cascade={"persist"}, inversedBy="ingredients")
      */
     private $imageCollection;
 
@@ -91,7 +91,7 @@ class Ingredient
      */
     public function getName()
     {
-        return $this->name;
+        return ucwords($this->name);
     }
 
     /**
@@ -225,6 +225,9 @@ class Ingredient
         return $this->imageCollection;
     }
     
+    public function getTItle() {
+        return $this->getName();
+    }
     
     
     /**
@@ -236,6 +239,11 @@ class Ingredient
     }
 
     public function __toString() {
-        return $this->name;
+        return $this->getName();
+    }
+    
+    public function getClassName()
+    {
+        return (new \ReflectionClass($this))->getShortName();
     }
 }

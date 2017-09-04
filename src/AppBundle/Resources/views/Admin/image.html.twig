@@ -1,0 +1,101 @@
+{% extends "::adminlayout.html.twig" %}
+
+{% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% form_theme form with [
+    'bootstrap_3_horizontal_layout.html.twig',
+
+] %}
+
+{% block adminpage %}
+<h2>Manage Image Library</h2>
+<div class="well pre-scrollable" style="height: 400px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="10%">Image</th>
+                <th>Caption</th>
+                <th>Copyright</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in images %}
+            <tr>    
+                <td rowspan="2"><img src="{{ asset("upload/" ~ i.imageFilepath ~ "/thumb.jpg") }}" alt="{{ i.imageCaption }}" /></td>
+                <td>{{ i.imageCaption }}</td>
+                <td>{{ i.imageCopyright }}</td>
+                <td>
+                    <a href="{{ path("admin_image", {"filepath": i.imageFilepath}) }}">edit</a>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                <span class="bold">Where Used:</span>
+                {% for ic in i.imageCollections %}
+                    {% for r in ic.recipes|merge(ic.recipeSteps)|merge(ic.ingredients) %}
+                    {% if r.className == "Recipe" %}
+                    <a href="{{ path("recipe", {"slug":r.slug}) }}">{{ r.title }}</a>
+                    {% elseif r.className == "Ingredient" %}
+                    <a href="{{ path("ingredient", {"slug":r.slug}) }}">{{ r.name }}</a>
+                    {% elseif r.className == "RecipeStep" %}
+                    <a href="{{ path("recipe", {"slug":r.recipe.slug}) }}">{{ r.title }}</a>
+                    {% endif %}
+                    {{ not loop.last ? ", " }}
+                    {% endfor %}
+                {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>   
+    
+</div>
+
+{% if isNew == true %}
+<h2>Add New Image</h2>
+{% else %}
+<a href="{{ path("admin_image") }}" class="pull-right">Add New</a>
+<h2>Change image</h2>
+{% endif %}
+    
+<div class="well">    
+{{ form_start(form) }}
+    {% if isNew == true %}
+    <div class="form-group">
+        {{ form_label(form.image) }}
+        <div class="col-sm-10">             
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        Browse&hellip; {{ form_widget(form.image, {"attr": {"style":"display:none;"}}) }}
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    {% else %}
+    <div class="form-group">
+        <div class="col-sm-6 text-center">
+            <img src="{{ asset('upload/' ~ form.imageFilepath.vars.value ~ '/small.jpg')}}" alt="{{ form.imageCaption.vars.value }}"/>
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(form.imageCaption) }}
+            {{ form_widget(form.imageCaption) }}
+            {{ form_label(form.imageCopyright) }}
+            {{ form_widget(form.imageCopyright) }}     
+            <div class="text-info" style="font-size: medium; margin-top: 20px;">File Size: {{ (form.imageSize.vars.value / 1024) | round(2) }} Kb</div>   
+        </div>    
+    </div>
+    {{ form_widget(form.submit) }}
+    {{ form_widget(form._token) }}
+    {{ form_widget(form.imageFilepath) }}
+    {{ form_widget(form.imageSize) }}
+    {% endif %}
+{{ form_end(form, {"render_rest":false}) }} 
+</div>
+
+{% endblock %}

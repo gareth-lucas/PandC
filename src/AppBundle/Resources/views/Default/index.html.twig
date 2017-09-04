@@ -9,11 +9,17 @@
 			<nav class="navbar navbar-default navbar-fixed-top" id="mainNav">
 				<ul class="navbar-nav nav">
 					<li><a href="#">Home</a></li>
-					<li><a href="#">Recipes</a></li>
+					<li><a href="{{ path("recipe_list") }}">Recipes</a></li>
+					<li><a href="{{ path("admin_recipe") }}">Admin</a></li>
 				</ul>
 			</nav>
-			<div class="text-center" style="height: 300px;">			
-				<input class="form-control search" name="search" placeholder="{{ 'homepage.search.placeholder' | trans}}" />
+			<div class="text-center" style="height: 300px;">	
+			    <div class="input-group search">		
+				<input class="form-control" name="search" placeholder="{{ 'homepage.search.placeholder' | trans}}" aria-describedby="basic-addon2" />
+				<span class="input-group-addon btn btn-primary" id="basic-addon2">
+				    Search&hellip;
+				</span>
+				</div>
 			</div>			
 		</div>
 		<div class="col-md-1">&nbsp;</div>

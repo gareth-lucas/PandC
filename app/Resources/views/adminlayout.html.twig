@@ -10,21 +10,34 @@
 		<!-- Left-hand Nav Bar -->
 		<div class="row">
     		<div class="col-md-3 background-inverse">
-    			<ul>
-    				<li><a href="{{ path("admin_recipe") }}">Manage Recipes</a></li>
-    				<li><a href="{{ path("admin_ingredient") }}">Manage Ingredients</a></li>    				
-    				<li><a href="{{ path("admin_preparation") }}">Manage Preparations</a></li>
-    				<li><a href="{{ path("admin_uom") }}">Manage Measurements</a></li>
-    				<li><a href="{{ path("admin_mealtype") }}">Manage Mealtypes</a></li>
-    			</ul>
-    			
-    			<ul>
-    				<li><a href="{{ path("admin_homepage") }}">Manage Homepage</a></li>
-    			</ul>
-    			
-    			<ul>
-    				<li><a href="{{ path("homepage") }}">Home</a></li>
-    			</ul>    			
+    			<div class="panel panel-default">
+                  <!-- Default panel contents -->
+                  <div class="panel-heading">Site Administration</div>
+                  <div class="panel-body">
+                    <p>From this page you can administrate the main areas of the site, including the homepage layout, the image library, and the backend database content</p>
+                  </div>
+                
+                  <!-- List group -->
+                  <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ path("admin_recipe") }}">Manage Recipes</a></li>
+                    <li class="list-group-item"><a href="{{ path("admin_ingredient") }}">Manage Ingredients</a></li>                    
+                    <li class="list-group-item"><a href="{{ path("admin_preparation") }}">Manage Preparations</a></li>
+                    <li class="list-group-item"><a href="{{ path("admin_uom") }}">Manage Measurements</a></li>
+                    <li class="list-group-item"><a href="{{ path("admin_mealtype") }}">Manage Mealtypes</a></li>
+                  </ul>
+                  <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ path("admin_homepage") }}">Manage Homepage</a></li>
+                  </ul>
+                  <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ path("admin_image") }}">Manage Images</a></li>
+                  </ul>                  
+                  <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ path("blog_admin") }}">Blog Entries</a></li>
+                  </ul>                  
+                  <ul class="list-group">
+                    <li class="list-group-item"><a href="{{ path("homepage") }}">Home</a></li>
+                  </ul>
+                </div>			
     		</div>
     		
     		<!-- Main Page Area -->

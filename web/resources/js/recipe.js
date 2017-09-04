@@ -89,14 +89,18 @@ function addIPForm($collectionHolder, $newLinkDiv) {
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
+    var newForm = prototype.replace(/__name__/g, index);    
 
+    var id = "#appbundle_recipe_ingredientPreparationCollection_ingredientPreparations_" + index + "_ingredient";
+    
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormDiv = $('<div></div>').append(newForm);
     $newLinkDiv.before($newFormDiv);
+    
+    addAutocomplete(id);
 }
 
 function addImageForm($collectionHolder, $newLinkDiv) {
@@ -179,3 +183,22 @@ function remove(element) {
 	$me = $(element);
 	$me.closest(".well").remove();
 }
+
+  function log( message ) {
+    $( "<div>" ).text( message ).prependTo( "#log" );
+    $( "#log" ).scrollTop( 0 );
+  }
+
+  function addAutocomplete(id) {
+	  $( id ).autocomplete({
+    source: auto_complete_source,
+    minLength: 2,
+    create: function () {
+        $(this).data('ui-autocomplete')._renderItem = function (div, item) {
+            return $('<div class="ui-autocomplete-div">')
+                .append('<a>' + item.value + '</a>')
+                .appendTo(div);
+        };
+    }
+   });
+  }

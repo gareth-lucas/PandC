@@ -30,9 +30,29 @@ class ImageCollection
      */
     private $images;
     
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Recipe", mappedBy="imageCollection");
+     */
+    private $recipes;
+    
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="imageCollection");
+     */
+    private $ingredients;
+    
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="RecipeStep", mappedBy="imageCollection");
+     */
+    private $recipeSteps;
+    
     public function __construct() {
         $this->images = new ArrayCollection();
-        //$this->addImage(new Image());
+        $this->recipes = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
+        $this->recipeSteps = new ArrayCollection();
     }
 
     /**
@@ -57,6 +77,48 @@ class ImageCollection
     public function removeImage(Image $image): ImageCollection {
         $this->images->removeElement($image);
         return $this;
+    }
+    
+    public function addRecipe(Recipe $recipe) {
+        $this->recipes->add($recipe);
+        return $this;
+    }
+    
+    public function removeRecipe(Recipe $recipe) {
+        $this->recipes->removeElement($recipe);
+        return $this;
+    }
+    
+    public function getRecipes() {
+        return $this->recipes->toArray();
+    }
+    
+    public function addIngredient(Ingredient $ingredient) {
+        $this->ingredients->add($ingredient);
+        return $this;
+    }
+    
+    public function removeIngredient(Ingredient $ingredient) {
+        $this->ingredients->removeElement($ingredient);
+        return $this;
+    }
+    
+    public function getIngredients() {
+        return $this->ingredients->toArray();
+    }
+    
+    public function addRecipeStep(RecipeStep $recipeStep) {
+        $this->recipeSteps->add($recipeStep);
+        return $this;
+    }
+    
+    public function removeRecipeStep(RecipeStep $recipeStep) {
+        $this->recipeSteps->removeElement($recipeStep);
+        return $this;
+    }
+    
+    public function getRecipeSteps() {
+        return $this->recipeSteps->toArray();
     }
 }
 

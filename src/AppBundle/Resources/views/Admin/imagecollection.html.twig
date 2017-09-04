@@ -1,6 +1,7 @@
 {% extends 'adminlayout.html.twig' %}
 {% form_theme form with [
-    '::form/fields/images.html.twig'
+    'bootstrap_3_horizontal_layout.html.twig',
+    '::/form/fields/imageCollection.html.twig'
 ] %}
 
 {% block title %}{{ 'admin.dashboard' | trans }}{% endblock %}
@@ -9,11 +10,14 @@
 <h2>Testing...</h2>
 
 {{ form_start(form) }}
-{{ form_widget(form) }}
+{{ form_widget(form.images, {"isNew":isNew}) }}
 {{ form_end(form) }}
 
 {% endblock adminpage %}
 
 {% block javascripts %}
-<script type="text/javascript" src="{{ asset('build/imagecollection.js') }}"></script>
+{{ parent() }}
+{% javascripts 'resources/js/imagecollection.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

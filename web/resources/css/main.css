@@ -10,8 +10,29 @@ div.background-inverse {
 	background-color: #333;
 }
 
-input.search {
-	margin: 100px 30% 0 30%;
-	width: 40%;
-	background-color: rgba(255, 255, 255, 0.8);
+.search {
+    width: 40%;
+    margin: 100px auto 0 auto;
+    border-radius: 4px;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+}
+
+input.ui-autocomplete-input {
+
+}
+
+div.ui-autocomplete-div {
+	border-left: 1px solid black; 
+	border-right: 1px solid black; 
+	border-bottom: 1px solid black; 
+	padding: 5px; 
+	max-width: 150px; 
+	background-color: white;
+	cursor: pointer;
 }

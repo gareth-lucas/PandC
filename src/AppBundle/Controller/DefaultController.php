@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\HomepageSettings;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -35,7 +36,7 @@ class DefaultController extends Controller
 
             if ($imageCollection) {
                 $images = $imageCollection->getImages();
-                $mainImage = $images[0]->getImageFilepath() . "/banner.jpg";
+                $mainImage = $this->getParameter("web_upload_directory")."/".$images[0]->getImageFilepath() . "/banner.jpg";
             }
         }
         
@@ -54,11 +55,40 @@ class DefaultController extends Controller
         }        
         
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('AppBundle:Default:index.html.twig', [
             'mainRecipe' => $mainRecipe,
             'mainImage' => $mainImage,
             'featuredRecipes' => $featuredRecipes,
             'featuredImages' => $featuredImages
         ]);
+    }
+    
+    /**
+     * @Route("/recipe/list", name="recipe_list")
+     */
+    public function recipeListAction() {
+        $em = $this->getDoctrine()->getManager();
+        $recipes = $em->getRepository(Recipe::class)->findBy([], ["title"=>"ASC"]);
+        
+        return $this->render('default/recipelist.html.twig', [
+            'recipes'=>$recipes
+        ]);
+    }
+    
+    
+    /**
+     * @Route("/recipe/{slug}", name="recipe")
+     */
+    public function recipeAction(Request $request, $slug) {
+        
+        throw new NotFoundHttpException("NOTE: This page has not yet been implemented");
+    }
+    
+    /**
+     * @Route("/ingredient/{slug}", name="ingredient")
+     */
+    public function ingredientAction(Request $request, $slug) {
+        
+        throw new NotFoundHttpException("NOTE: This page has not yet been implemented");
     }
 }

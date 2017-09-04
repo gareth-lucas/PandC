@@ -12,8 +12,12 @@ class FileUploader
         $this->targetDir = $targetDir;
     }
     
-    public function upload(UploadedFile $file)
+    public function upload($file)
     {
+        if(!$file instanceof UploadedFile) {
+            return false;
+        }
+        
          $rand = md5(uniqid());
          $folder = $this->targetDir."/".$rand;
         
@@ -85,7 +89,8 @@ class FileUploader
         \imagejpeg($image, $folder."/"."thumb.jpg");
         \imagedestroy($image);
 
-        return substr($folder, strpos($folder, "web"));
+        //return substr($folder, strpos($folder, "web"));
+        return $rand;
     }
     
     public function getTargetDir()

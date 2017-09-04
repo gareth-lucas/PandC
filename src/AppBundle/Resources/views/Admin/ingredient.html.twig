@@ -48,7 +48,7 @@
         {{ form_errors(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}        
-        {{ form_row(form.imageCollection.images) }} 
+        {{ form_row(form.imageCollection.images, {"isNew":isNew}) }} 
         {{ form_row(form.submit) }}
         {{ form_widget(form._token) }}
 {{ form_end(form, {'render_rest': false}) }}    

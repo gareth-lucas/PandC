@@ -23,6 +23,7 @@
 		"php": ">=5.5.9",
 		"doctrine/doctrine-bundle": "^1.6",
 		"doctrine/orm": "^2.5",
+		"egeloen/ckeditor-bundle": "^6.0",
 		"incenteev/composer-parameter-handler": "^2.0",
 		"phpunit/phpunit": "5.4.*",
 		"sensio/distribution-bundle": "^5.0.19",
@@ -45,6 +46,7 @@
 			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Ivory\\CKEditorBundle\\Composer\\CKEditorScriptHandler::install",			
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"

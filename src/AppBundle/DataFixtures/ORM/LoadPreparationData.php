@@ -11,18 +11,22 @@ class LoadPreparationData implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $names = [
-            "Sliced",
-            "Diced",
-            "Chopped",
-            "Grated",
-            "Boiled",
-            "Fried",
-            "Shredded",
-            "Roasted",
-            "Grilled",
-            "Cleaned",
-            "Boned",
-            "Peeled"
+            'WHOLE',
+            'GROUND',
+            'SLICED',
+            'DICED',
+            'PEELED',
+            'POWDERED',
+            'SIEVED',
+            'CHOPPED',
+            'BOILED',
+            'SEPARATED',
+            'MELTED',
+            'CRUSHED',
+            'SMALL',
+            'PRECOOKED',
+            'DRY',
+            'CANNED'
         ];
         
         foreach ($names as $name) {

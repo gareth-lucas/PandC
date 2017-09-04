@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class IngredientRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function findIngredientsAutocomplete($term) {
+        return $this->getEntityManager()
+        ->createQuery('SELECT i FROM AppBundle:Ingredient i WHERE i.name LIKE :term ORDER BY i.name')
+        ->setParameter("term", "%".$term."%")
+        ->getResult();        
+    }
 }

@@ -90,7 +90,8 @@ class Recipe
 
     /**
      *
-     * @var ImageCollection @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"});
+     * @var ImageCollection 
+     * @ORM\ManyToOne(targetEntity="ImageCollection", cascade={"persist"}, inversedBy="recipes");
      */
     private $imageCollection;
 
@@ -216,9 +217,9 @@ class Recipe
 
     /**
      *
-     * @param \DateTime $creation_date
+     * @param \DateTime|null $creation_date
      */
-    public function setCreationDate(\DateTime $creation_date)
+    public function setCreationDate($creation_date)
     {
         $this->creationDate = $creation_date;
     }
@@ -310,6 +311,7 @@ class Recipe
     public function setImageCollection($imageCollection)
     {
         $this->imageCollection = $imageCollection;
+        $imageCollection->addRecipe($this);
         
         return $this;
     }
@@ -346,5 +348,10 @@ class Recipe
     public function __toString()
     {
         return $this->getTitle();
+    }
+    
+    public function getClassName()
+    {
+        return (new \ReflectionClass($this))->getShortName();
     }
 }

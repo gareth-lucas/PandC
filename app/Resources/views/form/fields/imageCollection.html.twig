@@ -1,6 +1,7 @@
-{% macro imageTemplate(fields) %}
+{% macro imageTemplate(fields, isNew) %}
 	<div class="well">	
         <div class="row">
+        {% if isNew == true %}
         	<div class="form-group">
         		{{ form_label(fields.image) }}
         		<div class="col-sm-10">        		
@@ -16,6 +17,20 @@
             </div>
     		{{ form_row(fields.imageCaption) }}
     		{{ form_row(fields.imageCopyright) }}
+    	{% else %}
+            <div class="form-group">
+              <div class="col-sm-6 text-center">
+                  <img src="{{ asset('upload/' ~ fields.imageFilepath.vars.value ~ '/small.jpg') }}" alt="{{ fields.imageCaption.vars.value }}" />
+              </div>            
+              <div class="col-sm-6">
+                  {{ form_label(fields.imageCaption) }}
+                  {{ form_widget(fields.imageCaption) }}
+                  {{ form_label(fields.imageCopyright) }}
+                  {{ form_widget(fields.imageCopyright) }}
+                  <div>File Size: {{ fields.imageSize.vars.value }} bytes</div>
+              </div>
+            </div>
+    	{% endif %}
     		<div class="pull-right"><a href="#" onclick="remove(this)">Remove</a></div>
         </div>
 	</div>
@@ -29,9 +44,17 @@
 #}
 
 {% block _appbundle_ingredient_imageCollection_images_widget %}
-    <div id="appbundle_imagecollection_images" data-prototype="{{ _self.imageTemplate(form.vars.prototype)|e }}">
+    <div id="appbundle_imagecollection_images" data-prototype="{{ _self.imageTemplate(form.vars.prototype, isNew)|e }}">
         {% for fields in form.children %}
-            {{ _self.imageTemplate(fields) }}
+            {{ _self.imageTemplate(fields, isNew) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block _appbundle_imagecollection_images_widget %}
+    <div id="appbundle_imagecollection_images" data-prototype="{{ _self.imageTemplate(form.vars.prototype, isNew)|e }}">
+        {% for fields in form.children %}
+            {{ _self.imageTemplate(fields, isNew) }}
         {% endfor %}
     </div>
 {% endblock %}

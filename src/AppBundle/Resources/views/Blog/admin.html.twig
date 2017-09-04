@@ -1,0 +1,61 @@
+{% extends "::adminlayout.html.twig" %}
+
+{% block title %}AppBundle:Blog:admin{% endblock %}
+
+
+{% form_theme form with [
+    'bootstrap_3_horizontal_layout.html.twig',
+
+] %}
+
+{% block adminpage %}
+<h2>Manage Blogs</h2>
+
+<div class="well pre-scrollable" style="height: 400px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in blogs %}
+            <tr>
+                <td>{{ b.title }}</td>
+                <td>{{ b.creationDate | date('d/m/Y') }}</td>
+                <td>
+                    <a href="{{ path("blog_admin", {"slug":b.slug}) }}">edit</a>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">{{ 'no-data' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if isNew == true %}
+<h2>Create New Blog Entry</h2>
+{% else %}
+<h2>Modify Blog Entry</h2>
+{% endif %}    
+    
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+    
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% endblock %}
+
+

@@ -36,7 +36,7 @@ class RecipeStep
     
     /**
      * @var ImageCollection
-     * @ORM\OneToOne(targetEntity="ImageCollection", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ImageCollection", cascade={"persist"}, inversedBy="recipeSteps")
      */
     private $imageCollection;
 
@@ -107,6 +107,11 @@ class RecipeStep
         $this->imageCollection = $imageCollection;
         
         return $this;
+    }
+    
+    public function getClassName()
+    {
+        return (new \ReflectionClass($this))->getShortName();
     }
 
 }
