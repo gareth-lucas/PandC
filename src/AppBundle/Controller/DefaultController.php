@@ -70,7 +70,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $recipes = $em->getRepository(Recipe::class)->findBy([], ["title"=>"ASC"]);
         
-        return $this->render('default/recipelist.html.twig', [
+        return $this->render('AppBundle:Default:recipelist.html.twig', [
             'recipes'=>$recipes
         ]);
     }
@@ -81,7 +81,14 @@ class DefaultController extends Controller
      */
     public function recipeAction(Request $request, $slug) {
         
-        throw new NotFoundHttpException("NOTE: This page has not yet been implemented");
+        $em = $this->getDoctrine()->getManager();
+        if(!$recipe = $em->getRepository(Recipe::class)->findOneBySlug($slug)) {
+            throw new NotFoundHttpException("Unable to find that recipe!");
+        }
+        
+        return $this->render('AppBundle:Default:recipe.html.twig', [
+            'recipe'=>$recipe
+        ]);
     }
     
     /**

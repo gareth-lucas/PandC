@@ -4,8 +4,10 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\UnitOfMeasure;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class LoadUnitOfMeasureData implements FixtureInterface
+class LoadUnitOfMeasureData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     public function load(ObjectManager $manager)
@@ -126,8 +128,21 @@ class LoadUnitOfMeasureData implements FixtureInterface
             $uom->setName($name['name']);
             $uom->setAbbreviation($name['abbreviation']);
             $manager->persist($uom);
+            $this->addReference("uom-".strtolower(str_replace(" ", "-", $uom->getAbbreviation())), $uom);
         }
         
         $manager->flush();
     }
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\Common\DataFixtures\OrderedFixtureInterface::getOrder()
+     */
+    public function getOrder()
+    {
+        return 2;
+        
+    }
+
+    
+    
 }

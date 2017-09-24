@@ -5,8 +5,11 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Ingredient;
 use AppBundle\Entity\UnitOfMeasure;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class LoadIngredientData implements FixtureInterface
+
+class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     public function load(ObjectManager $manager)
@@ -76,7 +79,7 @@ class LoadIngredientData implements FixtureInterface
             'tomatoes',
             'tomato sauce',
             'truffle paste',
-            'veal thick rib',
+            'veal\'s thick rib',
             'vegetable oil',
             'vegetable stock',
             'water',
@@ -147,8 +150,21 @@ class LoadIngredientData implements FixtureInterface
             $ingredient = new Ingredient();
             $ingredient->setName($name);
             $manager->persist($ingredient);
+            $this->addReference('ingredient-'.strtolower(str_replace([' ',"'"], ["-",""], $ingredient->getName())), $ingredient);
         }
         
         $manager->flush();
     }
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\Common\DataFixtures\OrderedFixtureInterface::getOrder()
+     */
+    public function getOrder()
+    {
+        return 1;
+        
+    }
+
+    
+    
 }

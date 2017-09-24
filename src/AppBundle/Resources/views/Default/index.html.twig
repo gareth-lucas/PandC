@@ -35,9 +35,12 @@
 		{% for r in featuredRecipes %}
 		<div class="col-md-2" style="margin: 5px;">
 			<figure class="figure">
-				{{ dump(featuredImages) }}
-				<img class="img-responsive figure-img rounded" src="{{ asset("test") }}" />
-				<figcaption class="figure-caption text-center" style="background-color: #DDD;">{{ r.getTitle() }}</figcaption>
+				{% if r.imageCollection %}
+				<img class="img-responsive figure-img rounded" src="{{ asset(r.imageCollection.image[0] ~ "/small.jpg") }}" />
+				{% else %}
+				<img class="img-responsive figure-img rounded" src="http://via.placeholder.com/200x150.jpg/077603?text=Recipe+without+Image" />
+				{% endif %}
+				<figcaption class="figure-caption text-center" style="background-color: #DDD;"><a href="{{ path("recipe", {"slug": r.getSlug}) }}">{{ r.getTitle() }}</a></figcaption>
 			</figure>			
 		</div>
 		{% else %}

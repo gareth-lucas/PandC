@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+	<h1>{{ recipe.title }}</h1>
+	
+	<div class="row">
+    	<div class="col-sm-6"></div>
+    	<div class="col-sm-6">
+    	   <p>{{ recipe.description }}</p>
+    	</div>	
+	</div>
+	
+	<h2>{{ "recipe.ingredients" | trans }}</h2>
+	<div class="row">
+	   <div class="col-sm-12">
+	       {% for ip in recipe.ingredientPreparationCollection.ingredientPreparations %}
+	       <div class="ingredient-preparation">{{ ip.quantity }} {{ ip.uom ? ip.uom.name : ""}} {{ ip.preparation ? ip.preparation.name : "" }} {{ ip.ingredient.name }}</div>
+	       {% else %}
+	       {{ "general.error.no-ingredients" | trans }}
+	       {% endfor %}
+	   </div>
+	</div>
+	
+	<h2>{{ "recipe.preparation" | trans }}</h2>
+	<div class="row">
+	   {% for step in recipe.recipeStepCollection.recipeSteps %}
+	   <div class="col-sm-4">
+	       <p>{{ step.description }}</p>
+	   </div>
+	   {% if loop.index % 3 == 0 and not loop.last %}
+	       </div>
+	       <div class="row">
+	       {% endif %}
+	   {% else %}
+	   {{ "general.error.no-steps" | trans }}
+	   {% endfor %}
+	</div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+

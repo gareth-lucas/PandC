@@ -1,6 +1,18 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
-
-<h1>Recipe List</h1>
-
-
+<div class="container">
+    <h1>Recipe List</h1>
+    {% set oldFirst = "" %}
+    {% for r in recipes %}
+    {% set firstLetter = r.title|first %}
+    {% if oldFirst|lower != firstLetter|lower %}
+    <div class="letter-separator">{{ firstLetter|upper }}</div>
+    {% endif %}
+    <div class="recipe-entry"><a href="{{ path("recipe", {"slug": r.slug}) }}">{{ r.title }}</a></div>
+    {% set oldFirst = firstLetter %}
+    {% else %}
+    <p>{{ "recipelist.no-recipes" | trans }}</p>    
+    {% endfor %}
+</div>
 {% endblock body %}

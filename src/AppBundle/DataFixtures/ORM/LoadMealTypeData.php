@@ -4,8 +4,10 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\MealType;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class LoadMealTypeData implements FixtureInterface
+class LoadMealTypeData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     public function load(ObjectManager $manager)
@@ -24,8 +26,21 @@ class LoadMealTypeData implements FixtureInterface
             $mealType = new MealType();
             $mealType->setName($name);
             $manager->persist($mealType);
+            $this->addReference("type-".strtolower(str_replace(" ", "-", $mealType->getName())), $mealType);
         }
         
         $manager->flush();
     }
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\Common\DataFixtures\OrderedFixtureInterface::getOrder()
+     */
+    public function getOrder()
+    {
+        return 4;
+        
+    }
+
+    
+    
 }
