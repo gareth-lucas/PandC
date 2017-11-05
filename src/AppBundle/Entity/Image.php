@@ -370,5 +370,9 @@ class Image
         $this->setImageFilepath($rand);
 
     }
+    
+    public function __toString() {
+        return $this->imageFilepath;
+    }
 }
 
